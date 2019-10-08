@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <dirent.h>
+#include <stdlib.h>
  // Main Function
 int main() {
    // Folder Names
@@ -8,14 +9,11 @@ int main() {
    // for Path  
    char sd[] = "\\";
    char sourcedirectory[500], copysoruced1[500], copydestd1[500], copydestd2[500], copydestd3[500], copydestd4[500], copydestd5[500], destinationdirectory1[500], destinationdirectory2[500], destinationdirectory3[500], destinationdirectory4[500], destinationdirectory5[500];
-   char aa[100];
-   int status, i = 0;
-   printf("Enter path to list files: ");
-   fgets(aa, 256, stdin);
-   // to remove new line added in the background
-   if ((strlen(aa) > 0) && (aa[strlen(aa) - 1] == '\n'))
-      aa[strlen(aa) - 1] = '\0';
-   strcpy(sourcedirectory, aa);
+   char path[256];
+   int i = 0;
+   printf("Enter The Path : ");
+   gets(path);
+    strcpy(sourcedirectory, path);
    // Destination Directory path
    strcpy(destinationdirectory1, sourcedirectory);
    strcpy(destinationdirectory2, sourcedirectory);
@@ -47,19 +45,19 @@ int main() {
    strcat(destinationdirectory4, sd);
    strcpy(copydestd4, destinationdirectory4);
 
-   // concat Directory path 5
+   // concat Directory path 
    strcat(destinationdirectory5, folderCodeFiles);
    strcat(destinationdirectory5, sd);
    strcpy(copydestd5, destinationdirectory5);
-//
-   FILE * fp;
-   DIR * d;
-   struct dirent * dir;
+   
+   // Storing filenames in an array 
+   DIR *d;
+   struct dirent *dir;
    char *files[1000];
    int j=0,k=0;
-   d = opendir(aa);
+   d = opendir(path);
    if (NULL == d) {
-      printf("no such directory");
+      printf("No Such Directory \n");
       return 0;
    }
 
@@ -77,9 +75,9 @@ int main() {
    mkdir(destinationdirectory3);
    mkdir(destinationdirectory4);
    mkdir(destinationdirectory5);
-   // move files
+   // move files from main directory to sub directory
    for (i = 0; i < k; i++) {
-      FILE * from, * to;
+      FILE *from, *to;
       char ch;
       char s[500] ,d[500];
       char sf[500];
@@ -93,25 +91,23 @@ int main() {
          strcpy(d, destinationdirectory1);
          strcpy(sourcedirectory, copysoruced1);
          strcpy(destinationdirectory1, copydestd1);
-         /* open source file */
+         //open source file 
          if ((from = fopen(s, "rb")) == NULL) {
             printf("Cannot open source file.\n");
             continue;
          }
 
-         /* open destination file */
+         // open destination file
          if ((to = fopen(d, "wb")) == NULL) {
             printf("Cannot open destination file.\n");
          }
 
-         /* copy the file */
+         // copy the file 
          while (!feof(from)) {
             ch = fgetc(from);
-            
-           if (!feof(from))
+            if (!feof(from))
            { fputc(ch, to);
-       		
-			}
+       	   }
 		}
  		 fclose(to);
 	     fclose(from);
@@ -129,32 +125,29 @@ int main() {
          strcpy(sourcedirectory, copysoruced1);
          strcpy(destinationdirectory2, copydestd2);
 
-         /* open source file */
+          //open source file 
          if ((from = fopen(s, "rb")) == NULL) {
             printf("Cannot open source file.\n");
             continue;
          }
 
-         /* open destination file */
+         // open destination file
          if ((to = fopen(d, "wb")) == NULL) {
             printf("Cannot open destination file.\n");
-
          }
 
-         /* copy the file */
+         // copy the file 
          while (!feof(from)) {
             ch = fgetc(from);
-            
-           if (!feof(from))
+            if (!feof(from))
            { fputc(ch, to);
-       		
-			}
+       	   }
 		}
  		 fclose(to);
 	     fclose(from);
          remove(s);
 
-      } else if (strstr(files[i], ".jpeg") || strstr(files[i], ".png")) {
+      } else if (strstr(files[i], ".jpeg") || strstr(files[i], ".png") || strstr(files[i], ".jpg")) {
          strcpy(sf, files[i]);
          strcat(sourcedirectory, sf);
          strcat(destinationdirectory3, sf);
@@ -166,26 +159,23 @@ int main() {
          strcpy(sourcedirectory, copysoruced1);
          strcpy(destinationdirectory3, copydestd3);
 
-         /* open source file */
+          //open source file 
          if ((from = fopen(s, "rb")) == NULL) {
             printf("Cannot open source file.\n");
             continue;
          }
 
-         /* open destination file */
+         // open destination file
          if ((to = fopen(d, "wb")) == NULL) {
             printf("Cannot open destination file.\n");
-
          }
 
-         /* copy the file */
+         // copy the file 
          while (!feof(from)) {
             ch = fgetc(from);
-            
-           if (!feof(from))
+            if (!feof(from))
            { fputc(ch, to);
-       		
-			}
+       	   }
 		}
  		 fclose(to);
 	     fclose(from);
@@ -202,26 +192,23 @@ int main() {
          strcpy(sourcedirectory, copysoruced1);
          strcpy(destinationdirectory5, copydestd5);
 
-         /* open source file */
+         //open source file 
          if ((from = fopen(s, "rb")) == NULL) {
             printf("Cannot open source file.\n");
             continue;
          }
 
-         /* open destination file */
+         // open destination file
          if ((to = fopen(d, "wb")) == NULL) {
             printf("Cannot open destination file.\n");
-
          }
 
-         /* copy the file */
+         // copy the file 
          while (!feof(from)) {
             ch = fgetc(from);
-            
-           if (!feof(from))
+            if (!feof(from))
            { fputc(ch, to);
-       		
-			}
+       	   }
 		}
  		 fclose(to);
 	     fclose(from);
@@ -238,26 +225,23 @@ int main() {
 		 strcpy(sourcedirectory, copysoruced1);
          strcpy(destinationdirectory4, copydestd4);
 
-         /* open source file */
+         //open source file 
          if ((from = fopen(s, "rb")) == NULL) {
             printf("Cannot open source file.\n");
             continue;
          }
 
-         /* open destination file */
+         // open destination file
          if ((to = fopen(d, "wb")) == NULL) {
             printf("Cannot open destination file.\n");
-
          }
 
-         /* copy the file */
+         // copy the file 
          while (!feof(from)) {
             ch = fgetc(from);
-            
-           if (!feof(from))
+            if (!feof(from))
            { fputc(ch, to);
-       		
-			}
+       	   }
 		}
  		 fclose(to);
 	     fclose(from);
@@ -265,7 +249,6 @@ int main() {
       }
 
    }
-   // open each folder and check
    return 0;
 
-}
+}                      
